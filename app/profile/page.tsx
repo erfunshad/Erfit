@@ -1,103 +1,92 @@
+"use client";
+
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+
 export default function Profile(){
+
+const [name,setName]=useState("");
+const [age,setAge]=useState("");
+const [height,setHeight]=useState("");
+const [weight,setWeight]=useState("");
+const [goal,setGoal]=useState("");
+const [injury,setInjury]=useState("");
+
+
+async function save(){
+
+await supabase
+.from("clients")
+.insert([
+{
+name,
+age:Number(age),
+height:Number(height),
+weight:Number(weight),
+goal,
+injury
+}
+]);
+
+
+alert("اطلاعات ثبت شد");
+
+}
+
+
 
 return(
 
-<main
-style={{
-minHeight:"100vh",
-background:"#0a0a0a",
-color:"white",
-display:"flex",
-justifyContent:"center",
-padding:"40px"
-}}
->
+<div>
 
-<div
-style={{
-width:"450px",
-background:"#171717",
-padding:"30px",
-borderRadius:"20px"
-}}
->
-
-<h1 style={{
-fontSize:"32px"
-}}>
+<h1>
 اطلاعات بدنی
 </h1>
 
 
-<input placeholder="سن" style={input}/>
-
-<input placeholder="قد (سانتی متر)" style={input}/>
-
-<input placeholder="وزن (کیلوگرم)" style={input}/>
-
-
-<select style={input}>
-
-<option>
-هدف را انتخاب کنید
-</option>
-
-<option>
-عضله سازی
-</option>
-
-<option>
-چربی سوزی
-</option>
-
-<option>
-افزایش وزن
-</option>
-
-</select>
-
-
-<textarea
-placeholder="سابقه تمرین یا آسیب دیدگی"
-style={{
-...input,
-height:"100px"
-}}
+<input 
+placeholder="نام"
+onChange={(e)=>setName(e.target.value)}
 />
 
 
-<button
-style={{
-marginTop:"20px",
-width:"100%",
-padding:"15px",
-borderRadius:"10px",
-background:"#22c55e",
-color:"white",
-border:"none"
-}}
->
+<input 
+placeholder="سن"
+onChange={(e)=>setAge(e.target.value)}
+/>
+
+
+<input 
+placeholder="قد"
+onChange={(e)=>setHeight(e.target.value)}
+/>
+
+
+<input 
+placeholder="وزن"
+onChange={(e)=>setWeight(e.target.value)}
+/>
+
+
+<input 
+placeholder="هدف"
+onChange={(e)=>setGoal(e.target.value)}
+/>
+
+
+<input 
+placeholder="آسیب دیدگی"
+onChange={(e)=>setInjury(e.target.value)}
+/>
+
+
+<button onClick={save}>
 ارسال اطلاعات
 </button>
 
 
 </div>
 
-</main>
-
 )
-
-}
-
-
-const input={
-
-width:"100%",
-padding:"12px",
-marginTop:"15px",
-borderRadius:"10px",
-background:"#262626",
-color:"white",
-border:"1px solid #444"
 
 }
